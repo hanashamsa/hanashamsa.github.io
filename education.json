@@ -1,0 +1,52 @@
+{
+  "formal": [
+    {
+      "degree": "Master's in Artificial Intelligence",
+      "institution": "Johannes Kepler University",
+      "location": "Linz, Austria",
+      "start": "2024",
+      "end": "Current"
+    },
+    {
+      "degree": "Bachelor of Technology (Mechatronics Engineering)",
+      "institution": "APJ Abdul Kalam Technological University (NCERC)",
+      "location": "Kerala, India",
+      "start": "2018",
+      "end": "2022"
+    }
+  ],
+  "side_quests": [
+    {
+      "title": "PyTorch for Deep Learning Bootcamp",
+      "organizer": "Certification"
+    },
+    {
+      "title": "Complete Machine Learning, NLP Bootcamp MLOPS and Deployment",
+      "organizer": "Certification"
+    },
+    {
+      "title": "A Deep Understanding of Deep Learning",
+      "organizer": "Certification"
+    },
+    {
+      "title": "Mathematical Foundations of Machine Learning",
+      "organizer": "Certification"
+    },
+    {
+      "title": "Industrial Automation",
+      "organizer": "NPTEL (Jun 2021)"
+    },
+    {
+      "title": "Data Analytic Essentials",
+      "organizer": "Cisco (May 2024)"
+    },
+    {
+      "title": "Python Django",
+      "organizer": "Dec 2023–Feb 2024"
+    },
+    {
+      "title": "Industrial Robotics and IoT",
+      "organizer": "Jul 2019"
+    }
+  ]
+}

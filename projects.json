@@ -1,0 +1,26 @@
+[
+  {
+    "title": "White-Box Uncertainty Aware RAG System",
+    "description": "Designed and implemented a RAG system using Qwen2.5-0.5B for driving queries with white-box uncertainty quantification (retriever scores + generator entropy). Built confidence-based error gating and evaluated using ECE, AUROC. Sole contributor."
+  },
+  {
+    "title": "AI Coding Assistant Prototype",
+    "description": "Built internal assistant for code review & documentation using LangChain and OpenAI GPT-4 API. Benchmarked against human-written code."
+  },
+  {
+    "title": "Agentic Workflow Optimization System",
+    "description": "Developed AI agent for automating documentation and report generation. Compared OpenAI, Anthropic, and AWS Bedrock — achieved ~50% faster task completion."
+  },
+  {
+    "title": "Generative AI Knowledge Retrieval Tool",
+    "description": "Implemented RAG pipeline with FAISS and embedding search. Fine-tuned lightweight LLMs for QA over structured datasets."
+  },
+  {
+    "title": "3D Vision-Based Automation Project",
+    "description": "Real-time object tracking for humanoid robotics using OpenCV + PyTorch. Integrated perception with actuation via sensor fusion."
+  },
+  {
+    "title": "Process Data Visualization Tool",
+    "description": "Streamlit dashboard for real-time workflow efficiency metrics in industrial automation."
+  }
+]
