@@ -5,35 +5,30 @@ document.addEventListener('DOMContentLoaded', () => {
 function animateNameFromSymbols(element, finalText) {
     const symbols = '!@#$%^&*()_+-=[]{}|;:,.<>?/~`';
     const chars = finalText.split('');
-    const iterations = 20; // Number of frames for the animation
+    const iterations = 20;
     let frame = 0;
 
-    // Create an array to track when each character should be revealed
-    const revealFrame = chars.map((_, index) => Math.floor(iterations * 0.3) + index * 2);
+    const revealFrame = chars.map((_, index) =>
+        Math.floor(iterations * 0.3) + index * 2
+    );
 
     const interval = setInterval(() => {
         element.textContent = chars
             .map((char, index) => {
-                if (char === ' ') return ' '; // Keep spaces
+                if (char === ' ') return ' ';
+                if (frame >= revealFrame[index]) return char;
 
-                // If we've reached the reveal frame for this character, show it
-                if (frame >= revealFrame[index]) {
-                    return char;
-                }
-
-                // Otherwise show a random symbol
                 return symbols[Math.floor(Math.random() * symbols.length)];
             })
             .join('');
 
         frame++;
 
-        // Stop when all characters are revealed
         if (frame >= iterations) {
             clearInterval(interval);
-            element.textContent = finalText; // Ensure final text is correct
+            element.textContent = finalText;
         }
-    }, 120); // Update every 80ms
+    }, 120);
 }
 
 async function loadAllData() {
@@ -48,7 +43,7 @@ async function loadAllData() {
         const education = await eduRes.json();
         const projects = await projRes.json();
 
-        // Populate Header with symbol-to-letter animation
+        // HEADER
         const nameElement = document.getElementById('name');
         animateNameFromSymbols(nameElement, data.name || '');
         document.getElementById('bio').textContent = data.bio || '';
@@ -57,74 +52,150 @@ async function loadAllData() {
         cursor.className = 'cursor';
         nameElement.parentNode.insertBefore(cursor, nameElement.nextSibling);
 
+        // ABOUT
+        document.getElementById('about-content').textContent =
+            data.about || '';
 
-        // Populate About
-        document.getElementById('about-content').textContent = data.about || '';
-
-        // Populate Education
+        // EDUCATION
         const eduContainer = document.getElementById('education-content');
         let eduHTML = '';
+
         if (education.formal) {
             education.formal.forEach(e => {
-                eduHTML += `<div class="edu-entry"><strong>${e.degree}</strong>, ${e.institution} (${e.start}–${e.end})</div>`;
+                eduHTML += `
+                    <div class="edu-entry">
+                        <strong>${e.degree}</strong>,
+                        ${e.institution}
+                        (${e.start}–${e.end})
+                    </div>
+                `;
             });
         }
+
         if (education.side_quests) {
             eduHTML += '<br><h3>Side Quests</h3>';
+
             education.side_quests.forEach(s => {
-                eduHTML += `<div class="side-entry"><strong>${s.title}</strong> — ${s.organizer}</div>`;
+                eduHTML += `
+                    <div class="side-entry">
+                        <strong>${s.title}</strong> — ${s.organizer}
+                    </div>
+                `;
             });
         }
+
         eduContainer.innerHTML = eduHTML;
 
-        // Populate Projects
-const projectsContainer = document.getElementById('projects-content');
-projectsContainer.innerHTML = '';
+        // PROJECTS
+        const projectsContainer =
+            document.getElementById('projects-content');
 
-for (const p of projects) {
-    const projectDiv = document.createElement('div');
-    projectDiv.className = 'project';
+        projectsContainer.innerHTML = '';
 
-    const projectHeader = document.createElement('h3');
-    projectHeader.innerHTML = `${p.title} <span class="icon"></span>`;
+        console.log("Projects Loaded:", projects.length);
 
-    const projectContent = document.createElement('div');
-    projectContent.className = 'project-content';
-    projectContent.style.display = 'none';
+        for (const p of projects) {
+            const projectDiv = document.createElement('div');
+            projectDiv.className = 'project';
 
-    projectHeader.addEventListener('click', () => {
-        projectHeader.classList.toggle('active');
-        projectContent.style.display =
-            projectContent.style.display === 'block' ? 'none' : 'block';
-    });
+            const projectHeader = document.createElement('h3');
+            projectHeader.innerHTML =
+                `${p.title} <span class="icon"></span>`;
 
-    let contentHTML = `<p>${p.description || ''}</p>`;
+            const projectContent =
+                document.createElement('div');
 
-    // Safe markdown loading
-    if (p.file) {
-        try {
-            const mdRes = await fetch(`projects/${p.file}`);
-            if (mdRes.ok) {
-                const md = await mdRes.text();
-                contentHTML += `<div>${marked.parse(md)}</div>`;
+            projectContent.className = 'project-content';
+            projectContent.style.display = 'none';
+
+            projectHeader.addEventListener('click', () => {
+                projectHeader.classList.toggle('active');
+
+                projectContent.style.display =
+                    projectContent.style.display === 'block'
+                        ? 'none'
+                        : 'block';
+            });
+
+            let contentHTML =
+                `<p>${p.description || ''}</p>`;
+
+            // SAFE MARKDOWN LOAD
+            if (p.file) {
+                try {
+                    const mdRes = await fetch(`projects/${p.file}`);
+
+                    if (mdRes.ok) {
+                        const md = await mdRes.text();
+                        contentHTML +=
+                            `<div>${marked.parse(md)}</div>`;
+                    } else {
+                        console.warn(
+                            `Markdown file not found: ${p.file}`
+                        );
+                    }
+                } catch (err) {
+                    console.warn(
+                        `Error loading markdown: ${p.file}`,
+                        err
+                    );
+                }
             }
-        } catch (err) {
-            console.warn(`Could not load ${p.file}`);
+
+            // LINKS
+            if (p.links) {
+                contentHTML += '<div class="links">';
+
+                for (const [label, url] of Object.entries(p.links)) {
+                    contentHTML += `
+                        <a href="${url}" target="_blank">
+                            ${label}
+                        </a>
+                    `;
+                }
+
+                contentHTML += '</div>';
+            }
+
+            projectContent.innerHTML = contentHTML;
+
+            projectDiv.appendChild(projectHeader);
+            projectDiv.appendChild(projectContent);
+
+            projectsContainer.appendChild(projectDiv);
         }
-    }
 
-    // Links
-    if (p.links) {
-        contentHTML += '<div class="links">';
-        for (const [label, url] of Object.entries(p.links)) {
-            contentHTML += `<a href="${url}" target="_blank">${label}</a>`;
+        // CONTACT
+        const contactContainer =
+            document.getElementById('contact-content');
+
+        let contactHTML = '';
+
+        if (data.email) {
+            contactHTML += `
+                <div>
+                    <a href="mailto:${data.email}">
+                        ${data.email}
+                    </a>
+                </div>
+            `;
         }
-        contentHTML += '</div>';
+
+        if (data.socials) {
+            for (const [name, url] of Object.entries(data.socials)) {
+                contactHTML += `
+                    <div>
+                        <a href="${url}" target="_blank">
+                            ${name}
+                        </a>
+                    </div>
+                `;
+            }
+        }
+
+        contactContainer.innerHTML = contactHTML;
+
+    } catch (error) {
+        console.error('Error loading data:', error);
     }
-
-    projectContent.innerHTML = contentHTML;
-
-    projectDiv.appendChild(projectHeader);
-    projectDiv.appendChild(projectContent);
-    projectsContainer.appendChild(projectDiv);
 }
