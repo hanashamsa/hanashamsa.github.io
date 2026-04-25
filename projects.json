@@ -1,23 +1,47 @@
 [
   {
-    "title": "White-Box Uncertainty Aware RAG System",
-    "description": "Designed and implemented a RAG system using Qwen2.5-0.5B for driving queries with white-box uncertainty quantification (retriever scores + generator entropy). Built confidence-based error gating and evaluated using ECE, AUROC. Sole contributor."
+    "title": "SafeRoute-UQ: Uncertainty-Aware Retrieval-Augmented Generation for Reliable Route Assistance",
+    "description": "End-to-end RAG system for route and road-notice QA with calibrated uncertainty estimation and risk-aware decision gating. Uses FAISS + SentenceTransformers retrieval, token-level entropy, fusion-based trust scoring, and green/amber/red outputs."
+  },
+  {
+    "title": "WhiteBox-UQ-RAG",
+    "description": "White-box uncertainty quantification for retrieval-augmented QA using token-level log-probabilities, retrieval signals, calibration, and cross-model evaluation. Focused on whether internal model confidence predicts answer correctness."
+  },
+  {
+    "title": "Gmail AI Assistant",
+    "description": "Local email summarization and reply-draft assistant using Gmail API and Ollama/Mistral 7B. Processes email content locally, cleans HTML and links, and generates contextual responses while keeping sensitive content on-device."
+  },
+  {
+    "title": "Decision and Motion Planning for Autonomous Driving (CARLA)",
+    "description": "Hierarchical autonomous driving planner in CARLA combining FSM-based behavioral decisions, cubic-spiral motion planning, collision checking, and velocity profile generation for safe and smooth trajectories."
+  },
+  {
+    "title": "Multimodal RAG Pipeline",
+    "description": "Event-driven RAG system built with FastAPI, Inngest, Qdrant, and OpenAI. Supports PDF ingestion, chunking, embedding search, and contextual question answering through a modular backend."
+  },
+  {
+    "title": "Autonomous Vehicle Path Planning and PID Control using CARLA",
+    "description": "Autonomous driving project focused on path planning and PID control in CARLA. Integrates planning and low-level control for simulated vehicle navigation."
+  },
+  {
+    "title": "Minigrid DQN DoorKey 6x6",
+    "description": "Reinforcement learning project using DQN on the DoorKey 6x6 MiniGrid environment. Focused on sparse-reward navigation and agent training in a constrained grid world."
   },
   {
     "title": "AI Coding Assistant Prototype",
-    "description": "Built internal assistant for code review & documentation using LangChain and OpenAI GPT-4 API. Benchmarked against human-written code."
+    "description": "Internal assistant for code review and documentation using LangChain and OpenAI GPT-4 API. Benchmarked against human-written code."
   },
   {
     "title": "Agentic Workflow Optimization System",
-    "description": "Developed AI agent for automating documentation and report generation. Compared OpenAI, Anthropic, and AWS Bedrock — achieved ~50% faster task completion."
+    "description": "AI agent for automating documentation and report generation. Compared OpenAI, Anthropic, and AWS Bedrock, with about 50% faster task completion."
   },
   {
     "title": "Generative AI Knowledge Retrieval Tool",
-    "description": "Implemented RAG pipeline with FAISS and embedding search. Fine-tuned lightweight LLMs for QA over structured datasets."
+    "description": "RAG pipeline with FAISS and embedding search, plus lightweight LLM fine-tuning for QA over structured datasets."
   },
   {
     "title": "3D Vision-Based Automation Project",
-    "description": "Real-time object tracking for humanoid robotics using OpenCV + PyTorch. Integrated perception with actuation via sensor fusion."
+    "description": "Real-time object tracking for humanoid robotics using OpenCV and PyTorch, with sensor-fusion-based perception-to-actuation integration."
   },
   {
     "title": "Process Data Visualization Tool",
